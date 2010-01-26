@@ -127,7 +127,7 @@
         //
         foreach($vnstat_data as $line) 
         {
-            $d = split(';', trim($line));
+            $d = explode(';', trim($line));
             if ($d[0] == 'd')
             {
                 $day[$d[1]]['time']  = $d[2];
