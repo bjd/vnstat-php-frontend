@@ -21,12 +21,13 @@
     // for more information.
     //
     error_reporting(E_ALL | E_NOTICE);
-    
+
     //
     // configuration parameters
     //
     // edit these to reflect your particular situation
     //
+    setlocale(LC_ALL, 'en_US.UTF-8');
 
     // list of network interfaces monitored by vnStat
     $iface_list = array('eth0', 'eth1', 'sixxs');

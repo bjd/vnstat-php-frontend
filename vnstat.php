@@ -136,8 +136,8 @@
                 $day[$d[1]]['act']   = $d[7];
                 if ($d[2] != 0)
                 {
-                    $day[$d[1]]['label'] = date('d M Y', $d[2]);
-                    $day[$d[1]]['img_label'] = date('d', $d[2]);
+                    $day[$d[1]]['label'] = strftime('%d %b %Y', $d[2]);
+                    $day[$d[1]]['img_label'] = strftime('%d', $d[2]);
                 }
                 else
                 {
@@ -153,8 +153,8 @@
                 $month[$d[1]]['act']  = $d[7];
                 if ($d[2] != 0)
                 {
-                    $month[$d[1]]['label'] = date('M Y', $d[2]);
-                    $month[$d[1]]['img_label'] = date('M', $d[2]);
+                    $month[$d[1]]['label'] = strftime('%b %Y', $d[2]);
+                    $month[$d[1]]['img_label'] = strftime('%b', $d[2]);
                 }
                 else
                 {
@@ -170,8 +170,8 @@
                 $hour[$d[1]]['act']  = 1;
                 if ($d[2] != 0)
                 {
-                    $hour[$d[1]]['label'] = date('H', $d[2]).':00 - '.date('H', $d[2]+3600).':00';
-                    $hour[$d[1]]['img_label'] = date('H', $d[2]);
+                    $hour[$d[1]]['label'] = strftime('%H', $d[2]).':00 - '.strftime('%H', $d[2]+3600).':00';
+                    $hour[$d[1]]['img_label'] = strftime('%H', $d[2]);
                 }
                 else
                 {
@@ -185,8 +185,8 @@
                 $top[$d[1]]['rx']   = $d[3] * 1024 + $d[5];
                 $top[$d[1]]['tx']   = $d[4] * 1024 + $d[6];
                 $top[$d[1]]['act']  = $d[7];
-                $top[$d[1]]['label'] = date('d M Y', $d[2]);
-                $top[$d[1]]['img_label'] = date('d M', $d[2]);
+                $top[$d[1]]['label'] = strftime('%d %b %Y', $d[2]);
+                $top[$d[1]]['img_label'] = strftime('%d %b', $d[2]);
             }
             else
             {
