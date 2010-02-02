@@ -20,8 +20,8 @@
     // see file COPYING or at http://www.gnu.org/licenses/gpl.html 
     // for more information.
     //
-
     require 'config.php';
+    require 'localize.php';
     require 'vnstat.php';
 
     function write_side_bar()
@@ -81,28 +81,28 @@
         // build array for write_data_table
         //
         $sum[0]['act'] = 1;
-        $sum[0]['label'] = 'This hour';
+        $sum[0]['label'] = T('This hour');
         $sum[0]['rx'] = $hour[0]['rx'];
         $sum[0]['tx'] = $hour[0]['tx'];
 
         $sum[1]['act'] = 1;
-        $sum[1]['label'] = 'This day';
+        $sum[1]['label'] = T('This day');
         $sum[1]['rx'] = $day[0]['rx'];
         $sum[1]['tx'] = $day[0]['tx'];
 
         $sum[2]['act'] = 1;
-        $sum[2]['label'] = 'This month';
+        $sum[2]['label'] = T('This month');
         $sum[2]['rx'] = $month[0]['rx'];
         $sum[2]['tx'] = $month[0]['tx'];
 
         $sum[3]['act'] = 1;
-        $sum[3]['label'] = 'All time';
+        $sum[3]['label'] = T('All time');
         $sum[3]['rx'] = $trx;
         $sum[3]['tx'] = $ttx;
 
-        write_data_table('Summary', $sum);
+        write_data_table(T('Summary'), $sum);
         print "<br/>\n";
-        write_data_table('Top 10 days', $top);
+        write_data_table(T('Top 10 days'), $top);
     }
     
     
@@ -112,9 +112,9 @@
         print "<caption>$caption</caption>\n";
         print "<tr>";
         print "<th class=\"label\" style=\"width:120px;\">&nbsp;</th>";
-        print "<th class=\"label\">In</th>";
-        print "<th class=\"label\">Out</th>";
-        print "<th class=\"label\">Total</th>";  
+        print "<th class=\"label\">".T('In')."</th>";
+        print "<th class=\"label\">".T('Out')."</th>";
+        print "<th class=\"label\">".T('Total')."</th>";  
         print "</tr>\n";
 
         for ($i=0; $i<count($tab); $i++)
@@ -157,7 +157,7 @@
 <div id="wrap">
   <div id="sidebar"><?php write_side_bar(); ?></div>
    <div id="content">
-    <div id="header">Traffic data for <?php print $iface_title[$iface].' ('.$iface.')';?></div>
+    <div id="header"><?php print T('Traffic data for')." $iface_title[$iface] ($iface)";?></div>
     <div id="main">
     <?php
     $graph_params = "if=$iface&amp;page=$page&amp;style=$style";
@@ -174,15 +174,15 @@
     }
     else if ($page == 'h')
     {   
-        write_data_table('Last 24 hours', $hour); 
+        write_data_table(T('Last 24 hours'), $hour); 
     }
     else if ($page == 'd')
     {
-        write_data_table('Last 30 days', $day);	
+        write_data_table(T('Last 30 days'), $day);	
     }
     else if ($page == 'm')
     {
-        write_data_table('Last 12 months', $month);   
+        write_data_table(T('Last 12 months'), $month);   
     }
     ?>
     </div>

@@ -21,6 +21,7 @@
     // for more information.
     //
     require 'config.php';
+    require 'localize.php';
     require 'vnstat.php';
 
     function svg_create($width, $height)
@@ -147,7 +148,7 @@
 	svg_group_end();
 
 	// draw title
-	$text="Traffic data for $iface";
+	$text = T('Traffic data for')." $iface";
 	svg_text($iw / 2, ($ytm / 2), $text, array( 'stroke' => $cl['text'], 'stroke-width' => 0, 'font-family' => 'Vera', 'font-weight' => 'bold', 'text-anchor' => 'middle' ));
     }
 
@@ -321,10 +322,10 @@
         // legend
         //
         svg_rect($xlm, $ih-$ybm+39, 8, 8, array( 'stroke' => $cl['text']['rgb'], 'stroke-width' => 1, 'fill' => $cl['rx']['rgb']) );
-	svg_text($xlm+14, $ih-$ybm+48, 'bytes in', array( 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '8pt') );
+	svg_text($xlm+14, $ih-$ybm+48, T('bytes in'), array( 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '8pt') );
 
         svg_rect($xlm+120 , $ih-$ybm+39, 8, 8, array( 'stroke' => $cl['text']['rgb'], 'stroke-width' => 1, 'fill' => $cl['tx']['rgb']) );
-	svg_text($xlm+134, $ih-$ybm+48, 'bytes out', array( 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '8pt') );
+	svg_text($xlm+134, $ih-$ybm+48, T('bytes out'), array( 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '8pt') );
     }
 
     function output_image()

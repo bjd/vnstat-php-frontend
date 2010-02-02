@@ -44,10 +44,10 @@
     
     $graph_list = array('large','small','none');
     
-    $page_title['s'] = 'summary';
-    $page_title['h'] = 'hours';
-    $page_title['d'] = 'days';
-    $page_title['m'] = 'months';
+    $page_title['s'] = T('summary');
+    $page_title['h'] = T('hours');
+    $page_title['d'] = T('days');
+    $page_title['m'] = T('months');
     
 
     //
@@ -136,8 +136,8 @@
                 $day[$d[1]]['act']   = $d[7];
                 if ($d[2] != 0)
                 {
-                    $day[$d[1]]['label'] = strftime('%d %b %Y', $d[2]);
-                    $day[$d[1]]['img_label'] = strftime('%d', $d[2]);
+                    $day[$d[1]]['label'] = strftime(T('datefmt_days'),$d[2]);
+                    $day[$d[1]]['img_label'] = strftime(T('datefmt_days_img'), $d[2]);
                 }
                 else
                 {
@@ -153,8 +153,8 @@
                 $month[$d[1]]['act']  = $d[7];
                 if ($d[2] != 0)
                 {
-                    $month[$d[1]]['label'] = strftime('%b %Y', $d[2]);
-                    $month[$d[1]]['img_label'] = strftime('%b', $d[2]);
+                    $month[$d[1]]['label'] = strftime(T('datefmt_months'), $d[2]);
+                    $month[$d[1]]['img_label'] = strftime(T('datefmt_months_img'), $d[2]);
                 }
                 else
                 {
@@ -170,8 +170,10 @@
                 $hour[$d[1]]['act']  = 1;
                 if ($d[2] != 0)
                 {
-                    $hour[$d[1]]['label'] = strftime('%H', $d[2]).':00 - '.strftime('%H', $d[2]+3600).':00';
-                    $hour[$d[1]]['img_label'] = strftime('%H', $d[2]);
+                    $st = $d[2] - ($d[2] % 3600);
+                    $et = $st + 3600;
+                    $hour[$d[1]]['label'] = strftime(T('datefmt_hours'), $st).' - '.strftime(T('datefmt_hours'), $et);
+                    $hour[$d[1]]['img_label'] = strftime(T('datefmt_hours_img'), $d[2]);
                 }
                 else
                 {
@@ -185,8 +187,8 @@
                 $top[$d[1]]['rx']   = $d[3] * 1024 + $d[5];
                 $top[$d[1]]['tx']   = $d[4] * 1024 + $d[6];
                 $top[$d[1]]['act']  = $d[7];
-                $top[$d[1]]['label'] = strftime('%d %b %Y', $d[2]);
-                $top[$d[1]]['img_label'] = strftime('%d %b', $d[2]);
+                $top[$d[1]]['label'] = strftime(T('datefmt_top'), $d[2]);
+                $top[$d[1]]['img_label'] = '';
             }
             else
             {

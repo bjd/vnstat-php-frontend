@@ -21,6 +21,7 @@
     // for more information.
     //
     require 'config.php';
+    require 'localize.php';
     require 'vnstat.php';
 
     function allocate_color($im, $colors)
@@ -80,7 +81,7 @@
 	imagefilledpolygon($im, array($xlm, $ih - $ybm, $xlm - $depth, $ih - $ybm + $depth, $iw - $xrm - $depth, $ih - $ybm  + $depth, $iw - $xrm, $ih - $ybm), 4, $cl['background_2']);
 
 	// draw title
-	$text="Traffic data for $iface";
+	$text = T('Traffic data for')." $iface";
  	$bbox = imagettfbbox(10, 0, GRAPH_FONT, $text);
 	$textwidth = $bbox[2] - $bbox[0];
 	imagettftext($im, 10, 0, ($iw-$textwidth)/2, ($ytm/2), $cl['text'], GRAPH_FONT, $text);

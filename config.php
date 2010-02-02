@@ -27,10 +27,11 @@
     //
     // edit these to reflect your particular situation
     //
-    setlocale(LC_ALL, 'en_US.UTF-8');
+    $locale = 'en_US.UTF-8';
+    $language = 'en';
 
     // list of network interfaces monitored by vnStat
-    $iface_list = array('eth0', 'eth1', 'sixxs');
+    $iface_list = array('eth0', 'sixxs');
 
     //
     // optional names for interfaces
@@ -38,7 +39,6 @@
     // will be displayed instead
     //    
     $iface_title['eth0'] = 'Internal';
-    $iface_title['eth1'] = 'Internet';
     $iface_title['sixxs'] = 'SixXS IPv6';
 
     //
@@ -54,7 +54,7 @@
     // You can generate vnstat dumps with the command:
     //   vnstat --dumpdb -i $iface > /path/to/data_dir/vnstat_dump_$iface
     // 
-    $vnstat_bin = '';
+    $vnstat_bin = '/usr/bin/vnstat';
     $data_dir = './dumps';
 
     // graphics format to use: svg or png
