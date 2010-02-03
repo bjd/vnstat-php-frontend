@@ -149,7 +149,7 @@
 
 	// draw title
 	$text = T('Traffic data for')." $iface";
-	svg_text($iw / 2, ($ytm / 2), $text, array( 'stroke' => $cl['text'], 'stroke-width' => 0, 'font-family' => 'Vera', 'font-weight' => 'bold', 'text-anchor' => 'middle' ));
+	svg_text($iw / 2, ($ytm / 2), $text, array( 'stroke' => $cl['text'], 'fill' => $cl['text']['rgb'],'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-weight' => 'bold', 'text-anchor' => 'middle' ));
     }
 
     function draw_border()
@@ -246,7 +246,7 @@
         if ($data[0] == 'nodata')
         {
             $text = 'no data available';
-	    svg_text($iw/2, $ytm + 80, $text, array( 'stroke' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '16pt', 'text-anchor' => 'middle') );
+	    svg_text($iw/2, $ytm + 80, $text, array( 'stroke' => $cl['text']['rgb'], 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '16pt', 'text-anchor' => 'middle') );
         }
         else
         {
