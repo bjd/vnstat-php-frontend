@@ -82,10 +82,11 @@
             $graph = $graph_list[0];
         }
 
-	if (!isset($colorscheme[$style])) 
+	$tp = "./themes/$style";
+        if (!is_dir($tp) || !file_exists("$tp/theme.php"))
         {
 	    $style = DEFAULT_COLORSCHEME;
-	}
+        }
     }
     
 

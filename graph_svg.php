@@ -24,6 +24,10 @@
     require 'localize.php';
     require 'vnstat.php';
 
+    validate_input();
+
+    require "./themes/$style/theme.php";
+
     function svg_create($width, $height)
     {
 	header('Content-type: image/svg+xml');
@@ -125,7 +129,7 @@
         //
         // colors
         //
-	$cs = $colorscheme[$style];
+	$cs = $colorscheme;
 	$cl['image_background'] = allocate_color($cs['image_background']);
 	$cl['background'] = allocate_color($cs['graph_background']);
 	$cl['background_2'] = allocate_color($cs['graph_background_2']);
@@ -353,7 +357,6 @@
 	svg_end();
     }
 
-    validate_input();
     get_vnstat_data();
     output_image();
 ?>        

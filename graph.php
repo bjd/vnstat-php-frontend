@@ -24,6 +24,10 @@
     require 'localize.php';
     require 'vnstat.php';
 
+    validate_input();
+
+    require "./themes/$style/theme.php";
+
     function allocate_color($im, $colors)
     {
 	return imagecolorallocatealpha($im, $colors[0], $colors[1], $colors[2], $colors[3]);
@@ -59,7 +63,7 @@
         //
         // colors
         //
-	$cs = $colorscheme[$style];
+	$cs = $colorscheme;
 	$cl['image_background'] = allocate_color($im, $cs['image_background']);
 	$cl['background'] = allocate_color($im, $cs['graph_background']);
 	$cl['background_2'] = allocate_color($im, $cs['graph_background_2']);
@@ -294,7 +298,6 @@
         imagepng($im);
     }
 
-    validate_input();
     get_vnstat_data();
     output_image();
 ?>        

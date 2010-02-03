@@ -24,6 +24,10 @@
     require 'localize.php';
     require 'vnstat.php';
 
+    validate_input();
+
+    require "./themes/$style/theme.php";
+
     function write_side_bar()
     {
         global $iface, $page, $graph, $script, $style;
@@ -137,7 +141,6 @@
         print "</table>\n";
     }
 
-    validate_input();
     get_vnstat_data();
 
     //
@@ -150,7 +153,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>vnStat - PHP frontend</title>
-  <link rel="stylesheet" type="text/css" href="<?php echo $colorscheme[$style]['stylesheet']; ?>"/>
+  <link rel="stylesheet" type="text/css" href="themes/<?php echo $style ?>/style.css"/>
 </head>
 <body>
 
