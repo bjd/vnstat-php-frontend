@@ -1,6 +1,6 @@
 <?php
     //
-    // vnStat PHP frontend 1.4.1 (c)2006-2008 Bjorge Dijkstra (bjd@jooz.net)
+    // vnStat PHP frontend (c)2006-2010 Bjorge Dijkstra (bjd@jooz.net)
     //
     // This program is free software; you can redistribute it and/or modify
     // it under the terms of the GNU General Public License as published by
@@ -189,7 +189,7 @@
     }
     ?>
     </div>
-    <div id="footer"><a href="http://www.sqweek.com/">vnStat PHP frontend</a> 1.4.1 - &copy;2006-2008 Bjorge Dijkstra (bjd _at_ jooz.net)</div>
+    <div id="footer"><a href="http://www.sqweek.com/">vnStat PHP frontend</a> 1.5.0 - &copy;2006-2010 Bjorge Dijkstra (bjd _at_ jooz.net)</div>
   </div>
 </div>
 
