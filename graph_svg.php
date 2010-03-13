@@ -63,21 +63,21 @@
 
     function svg_text($x, $y, $text, $options = array()) 
     {	
-	print "<text x=\"$x\" y=\"$y\" ";
+	printf("<text x=\"%F\" y=\"%F\" ", $x, $y);
 	svg_options($options);
 	print ">$text</text>\n";
     }
 
     function svg_line($x1, $y1, $x2, $y2, $options = array())
     {
-	print "<line x1=\"$x1\" y1=\"$y1\" x2=\"$x2\" y2=\"$y2\" ";
+	printf("<line x1=\"%F\" y1=\"%F\" x2=\"%F\" y2=\"%F\" ", $x1, $y1, $x2, $y2);
 	svg_options($options);
 	print "/>\n";
     }
 
     function svg_rect($x, $y, $w, $h, $options = array()) 
     {
-	print "<rect x=\"$x\" y=\"$y\" width=\"$w\" height=\"$h\" ";
+	printf("<rect x=\"%F\" y=\"%F\" width=\"%F\" height=\"%F\" ", $x, $y, $w, $h);
 	svg_options($options);
 	print "/>\n";
     }
@@ -86,7 +86,7 @@
     {
        print "<polygon points=\"";
        for ($p = 0; $p < count($points); $p += 2) {
-	  print $points[$p].','.$points[$p+1].' ';
+	  printf("%F,%F ", $points[$p], $points[$p+1]);
        }
        svg_options($options);
        print "\"/>\n";
@@ -95,7 +95,7 @@
     function allocate_color($colors)
     {
 	$col['rgb'] = sprintf("#%02X%02X%02X", $colors[0], $colors[1], $colors[2]);
-	$col['opacity'] = (127 - $colors[3]) / 127;
+	$col['opacity'] = sprintf("%F", (127 - $colors[3]) / 127);
 	return $col;
     }
             
