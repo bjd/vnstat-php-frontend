@@ -17,10 +17,10 @@
     // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     //
     //
-    // see file COPYING or at http://www.gnu.org/licenses/gpl.html 
+    // see file COPYING or at http://www.gnu.org/licenses/gpl.html
     // for more information.
     //
-        
+
     //
     // Valid values for other parameters you can pass to the script.
     // Input parameters will always be limited to one of the values listed here.
@@ -39,16 +39,16 @@
     {
 	die('can\'t determine script name!');
     }
-    
+
     $page_list  = array('s','h','d','m');
-    
+
     $graph_list = array('large','small','none');
-    
+
     $page_title['s'] = T('summary');
     $page_title['h'] = T('hours');
     $page_title['d'] = T('days');
     $page_title['m'] = T('months');
-    
+
 
     //
     // functions
@@ -88,9 +88,9 @@
 	    $style = DEFAULT_COLORSCHEME;
         }
     }
-    
 
-    function get_vnstat_data()    
+
+    function get_vnstat_data()
     {
         global $iface, $vnstat_bin, $data_dir;
         global $hour,$day,$month,$top,$summary;
@@ -100,7 +100,7 @@
 	    if (file_exists("$data_dir/vnstat_dump_$iface"))
 	    {
         	$vnstat_data = file("$data_dir/vnstat_dump_$iface");
-	    }	    
+	    }
 	    else
 	    {
 		$vnstat_data = array();
@@ -126,7 +126,7 @@
         //
         // extract data
         //
-        foreach($vnstat_data as $line) 
+        foreach($vnstat_data as $line)
         {
             $d = explode(';', trim($line));
             if ($d[0] == 'd')
@@ -143,8 +143,8 @@
                 else
                 {
                     $day[$d[1]]['label'] = '';
-                    $day[$d[1]]['img_label'] = '';          
-                }           
+                    $day[$d[1]]['img_label'] = '';
+                }
             }
             else if ($d[0] == 'm')
             {
@@ -160,7 +160,7 @@
                 else
                 {
                     $month[$d[1]]['label'] = '';
-                    $month[$d[1]]['img_label'] = '';            
+                    $month[$d[1]]['img_label'] = '';
                 }
             }
             else if ($d[0] == 'h')
@@ -183,7 +183,7 @@
                 }
             }
             else if ($d[0] == 't')
-            {   
+            {
                 $top[$d[1]]['time'] = $d[2];
                 $top[$d[1]]['rx']   = $d[3] * 1024 + $d[5];
                 $top[$d[1]]['tx']   = $d[4] * 1024 + $d[6];
