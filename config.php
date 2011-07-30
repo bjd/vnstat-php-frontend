@@ -69,4 +69,7 @@
     // Default theme
     define('DEFAULT_COLORSCHEME', 'light');
 
+    // Set local timezone
+	date_default_timezone_set("America/Los_Angeles");
+
 ?>
