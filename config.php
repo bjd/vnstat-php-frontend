@@ -30,6 +30,9 @@
     $locale = 'en_US.UTF-8';
     $language = 'nl';
 
+    // Set local timezone
+    date_default_timezone_set("Europe/Amsterdam");
+
     // list of network interfaces monitored by vnStat
     $iface_list = array('eth0', 'sixxs');
 
