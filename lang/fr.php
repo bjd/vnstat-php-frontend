@@ -20,7 +20,7 @@ $L['Total'] = 'Total';
 
 // summary rows
 $L['This hour'] = 'Cette heure';
-$L['This day'] = 'Aujourd\' hui';
+$L['This day'] = 'Aujourd\'hui';
 $L['This month'] = 'Ce mois';
 $L['All time'] = 'Tout temps';
 
