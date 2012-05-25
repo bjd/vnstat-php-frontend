@@ -9,9 +9,9 @@ $L['months'] = 'Mois';
 // main table headers
 $L['Summary'] = 'Sommaire';
 $L['Top 10 days'] = 'Les 10 meilleurs jours';
-$L['Last 24 hours'] = 'Derinères 24 heures';
+$L['Last 24 hours'] = 'Dernières 24 heures';
 $L['Last 30 days'] = 'Derniers 30 jours';
-$L['Last 12 months'] = 'Les derniers 12 mois';
+$L['Last 12 months'] = 'Les 12 derniers mois';
 
 // traffic table columns
 $L['In'] = 'Entrant';
@@ -25,7 +25,7 @@ $L['This month'] = 'Ce mois';
 $L['All time'] = 'Tout temps';
 
 // graph text
-$L['Traffic data for'] = 'Traffic de donnée pour :';
+$L['Traffic data for'] = 'Trafic de donnée pour';
 $L['bytes in'] = 'bytes entrants';
 $L['bytes out'] = 'bytes sortants';
 
@@ -34,6 +34,6 @@ $L['datefmt_days'] = '%d %B';
 $L['datefmt_days_img'] = '%d';
 $L['datefmt_months'] = '%B %Y';
 $L['datefmt_months_img'] = '%b';
-$L['datefmt_hours'] = '%l%P';
-$L['datefmt_hours_img'] = '%l';
+$L['datefmt_hours'] = '%Hh';  // 24h format
+$L['datefmt_hours_img'] = '%H';
 $L['datefmt_top'] = '%d %B %Y';
