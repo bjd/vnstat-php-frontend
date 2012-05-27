@@ -1,5 +1,9 @@
 <?php
 
+// live monitoring
+$L['Reception'] = 'Recepció';
+$L['Transmission'] = 'Átvitel';
+
 // sidebar labels
 $L['summary'] = 'Összegzés';
 $L['hours'] = 'órák';

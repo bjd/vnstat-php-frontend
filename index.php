@@ -59,7 +59,14 @@
             {
                 print "<li class=\"page\"><a href=\"$script?if=$if$p&amp;page=$pg\">".$page_title[$pg]."</a></li>\n";
             }
-            print "</ul></li>\n";
+            print "</ul>\n";
+
+            print "<script type='text/javascript'>var $if = new LiveMonitor('$if');</script>";
+            print "<br/><div id='live$if'>";
+            print "<a href=\"javascript:$if.start();\">Start Live</a>";
+            print "</div>";
+            
+            print "</li>\n";
         }
         print "</ul>\n";
     }
@@ -159,6 +166,8 @@
 <head>
   <title>vnStat - PHP frontend</title>
   <link rel="stylesheet" type="text/css" href="themes/<?php echo $style ?>/style.css"/>
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="js/vnstat.js"></script>
 </head>
 <body>
 

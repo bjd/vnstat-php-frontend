@@ -1,5 +1,9 @@
 <?php
 
+// live monitoring
+$L['Reception'] = '招待会';
+$L['Transmission'] = '传输';
+
 // sidebar labels
 $L['summary'] = '总计';
 $L['hours'] = '每时';

@@ -1,5 +1,9 @@
 <?php
 
+// live monitoring
+$L['Reception'] = 'Reception';
+$L['Transmission'] = 'Trasmissione';
+
 // sidebar labels
 $L['summary'] = 'Riepilogo';
 $L['hours'] = 'Ore';

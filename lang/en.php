@@ -1,5 +1,11 @@
 <?php
 
+// live monitoring
+$L['Reception'] = 'Reception';
+$L['Transmission'] = 'Transmission';
+$L['Live monitoring started on interface '] = 'Live monitoring started on interface ';
+$L['Live monitoring not running on interface '] = 'Live monitoring not running on interface ';
+
 // sidebar labels
 $L['summary'] = 'summary';
 $L['hours'] = 'hours';

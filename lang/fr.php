@@ -1,7 +1,10 @@
 <?php
 
+// live monitoring
 $L['Reception'] = 'Réception';
 $L['Transmission'] = 'Transmission';
+$L['Live monitoring started on interface '] = 'La surveillance en direct a commencé sur l\'interface ';
+$L['Live monitoring not running on interface '] = 'La surveillance en direct n\'est pas en cours d\'exécution sur l\'interface ';
 
 // sidebar labels
 $L['summary'] = 'Sommaire';
