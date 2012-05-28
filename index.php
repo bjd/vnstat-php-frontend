@@ -61,10 +61,9 @@
             }
             print "</ul>\n";
 
-            print "<script type='text/javascript'>var $if = new LiveMonitor('$if');</script>";
-            print "<br/><div id='live$if'>";
-            print "<a href=\"javascript:$if.start();\">Start Live</a>";
-            print "</div>";
+            print "<script type='text/javascript'>var $if = new LiveMonitor('$if', '" . T('Start Live') . "');
+            jQuery(document).ready(function() { $if.doLive(); });</script>";
+            print "<br/><div id='live$if'></div>";
             
             print "</li>\n";
         }

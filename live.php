@@ -94,7 +94,10 @@ class LiveMonitor
                     $result = $this->ViewLive();
                 }
                 else
-                    $result = T('Live monitoring not running on interface ') . $this->_interface;
+                {
+                    $result = "<a href=\"javascript:{$this->_interface}.start()\">" . T('Start Live') . '</a><br/>';
+                    $result .= T('Live monitoring not running on interface ') . $this->_interface;
+                }
             }
 
             return isset($result) ? $result : null;
@@ -181,7 +184,7 @@ class LiveMonitor
 
             preg_match("/rx:{$genericPatternPart}tx:/", $trimmedLastRecord, $matches);
 
-            $output = "<a href='javascript:{$this->_interface}.stop();'>Stop Live</a><br/>" . $this->_outputTemplate;
+            $output = "<a href='javascript:{$this->_interface}.stop();'>" . T('Stop Live') . "</a><br/>" . $this->_outputTemplate;
             $output = str_replace('{rxText}', T('Reception'), $output);
             $output = str_replace('{rxRate}', $matches[1], $output);
             $output = str_replace('{rxRateUnit}', $matches[2], $output);

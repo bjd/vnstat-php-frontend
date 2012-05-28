@@ -5,6 +5,8 @@ $L['Reception'] = 'Reception';
 $L['Transmission'] = 'Transmission';
 $L['Live monitoring started on interface '] = 'Live monitoring started on interface ';
 $L['Live monitoring not running on interface '] = 'Live monitoring not running on interface ';
+$L['Start Live'] = 'Start Live';
+$L['Stop Live'] = 'Stop Live';
 
 // sidebar labels
 $L['summary'] = 'summary';

@@ -1,14 +1,13 @@
 /**
  * @returns {LiveMonitor}
  */
-function LiveMonitor(iface)
+function LiveMonitor(iface, startText)
 {
     this._iface = iface;
     
     this._refreshHandler = null;
     this._refreshInterval = 5000;
-    
-    this._startText = 'Start Live';
+
     this._idPrefix = 'live';
 
     if (LiveMonitor.initialized == undefined)
@@ -16,6 +15,9 @@ function LiveMonitor(iface)
         LiveMonitor.prototype.doLive = function(action)
         {
             var obj = this;
+            
+            if(action == undefined)
+                action = '';
 
             jQuery.ajax({
                 url  : 'live.php',
@@ -27,7 +29,9 @@ function LiveMonitor(iface)
                 },
                 success : function(data)
                 {
-                    if(action != 'stop')
+                    if(data.indexOf(startText) == -1 && obj._refreshHandler == null)
+                        obj.start();
+                    else 
                         jQuery('#' + obj._idPrefix + obj._iface).html(data);
                 }
             });
@@ -44,14 +48,10 @@ function LiveMonitor(iface)
 
         LiveMonitor.prototype.stop = function()
         {
-            this.doLive('stop');
-            
-            var htmlStartText = "<a href=\"javascript:" + this._iface + ".start()\">" + this._startText + "</a>";
-
-            jQuery('#' + this._idPrefix + this._iface).html(htmlStartText);
-
             clearInterval(this._refreshHandler);
             this._refreshHandler = null;
+            
+            this.doLive('stop');
         }
     }
     LiveMonitor.initialized = true;
