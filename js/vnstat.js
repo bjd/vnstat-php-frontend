@@ -1,23 +1,23 @@
 /**
  * @returns {LiveMonitor}
  */
-function LiveMonitor(iface, startText)
+function LiveMonitor(iface, stopText)
 {
-    this._iface = iface;
-    
-    this._refreshHandler = null;
-    this._refreshInterval = 5000;
-
     this._idPrefix = 'live';
+    this._refreshInterval = 5000;
+    this._refreshHandler  = null;
+
+    this._iface = iface;
+    this._stopText = stopText;
 
     if (LiveMonitor.initialized == undefined)
     {
-        LiveMonitor.prototype.doLive = function(action)
+        LiveMonitor.prototype.monitor = function(action)
         {
-            var obj = this;
-            
             if(action == undefined)
                 action = '';
+
+            var obj = this;
 
             jQuery.ajax({
                 url  : 'live.php',
@@ -25,11 +25,13 @@ function LiveMonitor(iface, startText)
                 data :
                 {
                     action : action,
-                    'if'   : this._iface
+                    if     : this._iface
                 },
                 success : function(data)
                 {
-                    if(data.indexOf(startText) == -1 && obj._refreshHandler == null)
+                    // restarts Live Monitoring when data contains locale Stop Live text
+                    // and refreshHandler is not configured to poll live datas
+                    if(data.indexOf(obj._stopText) != -1 && obj._refreshHandler == null)
                         obj.start();
                     else 
                         jQuery('#' + obj._idPrefix + obj._iface).html(data);
@@ -39,11 +41,10 @@ function LiveMonitor(iface, startText)
 
         LiveMonitor.prototype.start = function()
         {
-            this.doLive('start');
+            this.monitor('start');
             
             var obj = this;
-
-            this._refreshHandler = setInterval(function() { obj.doLive('start'); }, this._refreshInterval);
+            this._refreshHandler = setInterval(function() { obj.monitor('start'); }, this._refreshInterval);
         }
 
         LiveMonitor.prototype.stop = function()
@@ -51,7 +52,7 @@ function LiveMonitor(iface, startText)
             clearInterval(this._refreshHandler);
             this._refreshHandler = null;
             
-            this.doLive('stop');
+            this.monitor('stop');
         }
     }
     LiveMonitor.initialized = true;

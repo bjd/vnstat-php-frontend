@@ -3,15 +3,9 @@
 require 'config.php';
 require 'localize.php';
     
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8');
 
-$outputTemplate = '<b>{rxText}</b>
-                   <br/>{rxRate} {rxRateUnit} - {rxSum} {rxSumUnit}<br/>
-                   <br/>
-                   <b>{txText}</b>
-                   <br/>{txRate} {txRateUnit} - {txSum} {txSumUnit}';
-
-$monitor = new LiveMonitor($iface_list[0], $outputTemplate);
+$monitor = new LiveMonitor($iface_list[0], $liveRunningTemplate, $liveStoppedTemplate);
 $result  = $monitor->Run();
 
 
@@ -21,6 +15,7 @@ if(isset($result))
 
 /**
  * Should work with a basic Linux installation.
+ * Live Monitoring for interfaces using space character will not work correctly.
  * Programs used are : ps, whoami, grep, awk, timeout and vnstat of course
  */
 class LiveMonitor
@@ -37,15 +32,21 @@ class LiveMonitor
     private $_pidFile;
     /* @var string */
     private $_liveFile;
+    /* @var string */
+    private $_runningTemplate;
     /* @var string */    
-    private $_outputTemplate;
+    private $_stoppedTemplate;
 
     /**
      * @param string $defaultInterface
+     * @param string $runningTemplate
+     * @param string $stoppedTemplate
      */
-    public function LiveMonitor($defaultInterface, $outputTemplate)
+    public function LiveMonitor($defaultInterface, $runningTemplate, $stoppedTemplate)
     {
-        $this->_outputTemplate = $outputTemplate;
+        $this->_runningTemplate = $runningTemplate;
+        $this->_stoppedTemplate = $stoppedTemplate;
+
         $this->_tempDir = dirname(__FILE__) . '/tmp';
 
         if(!file_exists($this->_tempDir))
@@ -75,7 +76,7 @@ class LiveMonitor
                 switch($_POST['action'])
                 {
                     case 'start':
-                        $result = $this->StartVnstat();
+                        $output = $this->StartVnstat();
                         break;
 
                     case 'stop':
@@ -86,21 +87,25 @@ class LiveMonitor
 
             $this->CheckVnstatProcess();
 
-            if(!isset($result))
+            if(!isset($output))
             {
                 if(file_exists($this->_liveFile.$this->_interface) &&
                    file_exists($this->_pidFile.$this->_interface))
                 {
-                    $result = $this->ViewLive();
+                    $output = $this->ViewLive();
                 }
                 else
                 {
-                    $result = "<a href=\"javascript:{$this->_interface}.start()\">" . T('Start Live') . '</a><br/>';
-                    $result .= T('Live monitoring not running on interface ') . $this->_interface;
+                    $link = "<a href=\"javascript:{$this->_interface}.start()\">" . T('Start Live') . '</a>';
+                    $text = T('Live monitoring not running on interface ') . $this->_interface;
+                    
+                    $output = $this->_stoppedTemplate;
+                    $output = str_replace('{link}', $link, $output);
+                    $output = str_replace('{text}', $text, $output);
                 }
             }
 
-            return isset($result) ? $result : null;
+            return isset($output) ? $output : null;
         }
     }
 
@@ -184,7 +189,10 @@ class LiveMonitor
 
             preg_match("/rx:{$genericPatternPart}tx:/", $trimmedLastRecord, $matches);
 
-            $output = "<a href='javascript:{$this->_interface}.stop();'>" . T('Stop Live') . "</a><br/>" . $this->_outputTemplate;
+            $link = "<a href='javascript:{$this->_interface}.stop();'>" . T('Stop Live') . '</a>';
+            
+            $output = $this->_runningTemplate;
+            $output = str_replace('{link}', $link, $output);
             $output = str_replace('{rxText}', T('Reception'), $output);
             $output = str_replace('{rxRate}', $matches[1], $output);
             $output = str_replace('{rxRateUnit}', $matches[2], $output);
