@@ -63,21 +63,25 @@
     // graphics format to use: svg or png
     $graph_format='svg';
 
-    // templating for active Live Monitoring which is written in the sidebar
+    // templating for active Live Monitoring
     // usable tags are : {link},
     //                   {rxText}, {rxRate}, {rxRateUnit}, {rxSum}, {rxSumUnit},
     //                   {txText}, {txRate}, {txRateUnit}, {txSum}, {txSumUnit}
-    $liveRunningTemplate = '<em>{link}</em><br/>
+    $liveRunningTemplate = '<br/><em>{link}</em><br/>
 <b>{rxText}</b>
 <br/>{rxRate} {rxRateUnit} - {rxSum} {rxSumUnit}<br/>
 <br/>
 <b>{txText}</b>
 <br/>{txRate} {txRateUnit} - {txSum} {txSumUnit}';
 
-    // templating for inactive Live Monitoring which is written in the sidebar
+    // templating for inactive Live Monitoring
     // usable tags are : {link}, {text}
-    $liveStoppedTemplate = '<em>{link}</em><br/>{text}';
+    $liveStoppedTemplate = '<br/><em>{link}</em><br/>{text}';
 
+    // templating for starting Live Monitoring
+    // usable tags are : {text}
+    $liveStartingTemplate = '<br/>{text}';
+    
     // Font to use for PNG graphs
     define('GRAPH_FONT',dirname(__FILE__).'/VeraBd.ttf');
 

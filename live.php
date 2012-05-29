@@ -5,7 +5,11 @@ require 'localize.php';
     
 header('Content-Type: text/plain; charset=utf-8');
 
-$monitor = new LiveMonitor($iface_list[0], $liveRunningTemplate, $liveStoppedTemplate);
+$monitor = new LiveMonitor($iface_list[0],
+                           $liveRunningTemplate,
+                           $liveStoppedTemplate,
+                           $liveStartingTemplate);
+
 $result  = $monitor->Run();
 
 
@@ -16,14 +20,10 @@ if(isset($result))
 /**
  * Should work with a basic Linux installation.
  * Live Monitoring for interfaces using space character will not work correctly.
- * Programs used are : ps, whoami, grep, awk, timeout and vnstat of course
+ * Programs used are : ps, whoami, timeout and vnstat
  */
 class LiveMonitor
 {
-    /* @var string */
-    private $_pidVnstatCmd = "ps -fu $(whoami) | grep vnstat | grep {0} | grep -v timeout | awk '{print $2}'";
-    /* @var string */
-    private $_ifListVnstatCmd = "vnstat --iflist | awk '{print $3,$4,$5}'";
     /* @var string */
     private $_interface;
     /* @var string */
@@ -34,18 +34,22 @@ class LiveMonitor
     private $_liveFile;
     /* @var string */
     private $_runningTemplate;
-    /* @var string */    
+    /* @var string */
     private $_stoppedTemplate;
+    /* @var string */
+    private $_startingTemplate;
 
     /**
      * @param string $defaultInterface
      * @param string $runningTemplate
      * @param string $stoppedTemplate
+     * @param string $startingTemplate
      */
-    public function LiveMonitor($defaultInterface, $runningTemplate, $stoppedTemplate)
+    public function LiveMonitor($defaultInterface, $runningTemplate, $stoppedTemplate, $startingTemplate)
     {
-        $this->_runningTemplate = $runningTemplate;
-        $this->_stoppedTemplate = $stoppedTemplate;
+        $this->_runningTemplate  = $runningTemplate;
+        $this->_stoppedTemplate  = $stoppedTemplate;
+        $this->_startingTemplate = $startingTemplate;
 
         $this->_tempDir = dirname(__FILE__) . '/tmp';
 
@@ -66,47 +70,52 @@ class LiveMonitor
      */
     public function Run()
     {
-        $vnstatIfList = exec($this->_ifListVnstatCmd);
-        $vnstatIfListArray = explode(' ', $vnstatIfList);
+        $vnstatIfList = exec('vnstat --iflist');
 
-        if(!empty($this->_interface) && in_array($this->_interface, $vnstatIfListArray))
+        $matched = preg_match("/:\s+(.+)$/", $vnstatIfList, $matches);
+        
+        if($matched)
         {
-            if(isset($_POST['action']))
-            {
-                switch($_POST['action'])
-                {
-                    case 'start':
-                        $output = $this->StartVnstat();
-                        break;
+            $vnstatIfListArray = explode(' ', $matches[1]);
 
-                    case 'stop':
-                        $this->StopVnstat();
-                        break;
+            if(!empty($this->_interface) && in_array($this->_interface, $vnstatIfListArray))
+            {
+                if(isset($_POST['action']))
+                {
+                    switch($_POST['action'])
+                    {
+                        case 'start':
+                            $output = $this->StartVnstat();
+                            break;
+
+                        case 'stop':
+                            $this->StopVnstat();
+                            break;
+                    }
+                }
+
+                $this->CheckVnstatProcess();
+
+                if(!isset($output))
+                {
+                    if(file_exists($this->_liveFile.$this->_interface) &&
+                       file_exists($this->_pidFile.$this->_interface))
+                    {
+                        $output = $this->ViewLive();
+                    }
+                    else
+                    {
+                        $link = "<a href=\"javascript:{$this->_interface}.start()\">" . T('Start Live') . '</a>';
+                        $text = T('Live monitoring not running on interface ') . $this->_interface;
+
+                        $output = $this->_stoppedTemplate;
+                        $output = str_replace('{link}', $link, $output);
+                        $output = str_replace('{text}', $text, $output);
+                    }
                 }
             }
-
-            $this->CheckVnstatProcess();
-
-            if(!isset($output))
-            {
-                if(file_exists($this->_liveFile.$this->_interface) &&
-                   file_exists($this->_pidFile.$this->_interface))
-                {
-                    $output = $this->ViewLive();
-                }
-                else
-                {
-                    $link = "<a href=\"javascript:{$this->_interface}.start()\">" . T('Start Live') . '</a>';
-                    $text = T('Live monitoring not running on interface ') . $this->_interface;
-                    
-                    $output = $this->_stoppedTemplate;
-                    $output = str_replace('{link}', $link, $output);
-                    $output = str_replace('{text}', $text, $output);
-                }
-            }
-
-            return isset($output) ? $output : null;
         }
+        return isset($output) ? $output : null;
     }
 
     /**
@@ -114,7 +123,7 @@ class LiveMonitor
      */
     private function CheckVnstatProcess()
     {
-        $realPid = trim(exec(str_replace('{0}', $this->_interface, $this->_pidVnstatCmd)));
+        $realPid = $this->GetPid();
 
         if(empty($realPid))
         {
@@ -139,9 +148,11 @@ class LiveMonitor
         {
             exec("timeout --signal=KILL 1h vnstat -l 1 -i {$this->_interface} > {$this->_liveFile}{$this->_interface} 2> /dev/null &");
 
-            exec(str_replace('{0}', $this->_interface, $this->_pidVnstatCmd) . ' > ' . $this->_pidFile.$this->_interface);
+            exec('echo ' . $this->GetPid() . ' > ' . $this->_pidFile.$this->_interface);
 
-            return T('Live monitoring started on interface ') . $this->_interface;
+            return str_replace('{text}',
+                               T('Live monitoring started on interface ') . $this->_interface,
+                               $this->_startingTemplate);
         }
         return null;
     }
@@ -162,25 +173,13 @@ class LiveMonitor
     }
 
     /**
-     *
-     */
-    private function ClearTmpFiles()
-    {
-        if(file_exists($this->_pidFile.$this->_interface))
-            unlink($this->_pidFile.$this->_interface);
-
-        if(file_exists($this->_liveFile.$this->_interface))
-            unlink($this->_liveFile.$this->_interface);
-    }
-
-    /**
      * @return string
      */
     private function ViewLive()
     {
         $liveFileContent = file_get_contents($this->_liveFile.$this->_interface);
 
-        $matched = preg_match('/getting.*(rx:.*)$/', $liveFileContent, $lastRecord);
+        $matched = preg_match('/.*(rx:.*)$/', $liveFileContent, $lastRecord);
 
         if($matched)
         {
@@ -190,7 +189,7 @@ class LiveMonitor
             preg_match("/rx:{$genericPatternPart}tx:/", $trimmedLastRecord, $matches);
 
             $link = "<a href='javascript:{$this->_interface}.stop();'>" . T('Stop Live') . '</a>';
-            
+
             $output = $this->_runningTemplate;
             $output = str_replace('{link}', $link, $output);
             $output = str_replace('{rxText}', T('Reception'), $output);
@@ -210,6 +209,38 @@ class LiveMonitor
             return $output;
         }
         return null;
+    }
+
+    /**
+     *
+     */
+    private function ClearTmpFiles()
+    {
+        if(file_exists($this->_pidFile.$this->_interface))
+            unlink($this->_pidFile.$this->_interface);
+
+        if(file_exists($this->_liveFile.$this->_interface))
+            unlink($this->_liveFile.$this->_interface);
+    }
+    
+    /**
+     * @return string
+     */
+    private function GetPid()
+    {
+        $whoami = exec('whoami');
+        
+        exec("ps -fu $whoami", $output);
+
+        foreach($output as $str)
+        {
+            $matched = preg_match("/$whoami\s+(\d+)\s+.+:\d+\s+vnstat.+{$this->_interface}/", $str, $matches);
+
+            if($matched)
+                break;
+        }
+
+        return count($matches) > 1 ? $matches[1] : null;
     }
 }
 ?>
