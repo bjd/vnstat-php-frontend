@@ -145,7 +145,7 @@
         svg_rect(0, 0, $iw, $ih, array( 'stroke' => 'none', 'stroke-width' => 0, 'fill' => $cl['image_background']['rgb']) );
 	svg_rect($xlm, $ytm, $iw-$xrm-$xlm, $ih-$ybm-$ytm, array( 'stroke' => 'none', 'stroke-width' => 0, 'fill' => $cl['background']['rgb']) );
 
-	$depth = 12;
+	$depth = 12*SVG_DEPTH_SCALING;
 	svg_group( array( 'stroke' => 'none', 'stroke-width' => 0, 'fill' => $cl['background_2']['rgb'], 'fill-opacity' => $cl['background_2']['opacity']) );
 	svg_poly(array($xlm, $ytm, $xlm, $ih - $ybm, $xlm - $depth, $ih - $ybm + $depth, $xlm - $depth, $ytm + $depth));
 	svg_poly(array($xlm, $ih - $ybm, $xlm - $depth, $ih - $ybm + $depth, $iw - $xrm - $depth, $ih - $ybm  + $depth, $iw - $xrm, $ih - $ybm));
@@ -168,7 +168,7 @@
         $x_step = ($iw - $xlm - $xrm) / $x_ticks;
         $y_step = ($ih - $ytm - $ybm) / $y_ticks;
 
-	$depth = 12;
+	$depth = 12*SVG_DEPTH_SCALING;
 
 	svg_group( array( 'stroke' => $cl['grid_stipple_1']['rgb'], 'stroke-opacity' => $cl['grid_stipple_1']['opacity'], 'stroke-width' => '1px', 'stroke-dasharray' => '1,1' ) );
         for ($i = $xlm; $i <= ($iw - $xrm); $i += $x_step)
@@ -262,7 +262,7 @@
         	$x = $xlm + ($i * $x_step);
         	$y = $ytm + ($ih - $ytm - $ybm) - (($data[$i]['rx'] - $offset) / $sf);
 
-		$depth = ($x_ticks < 20) ? 8 : 6;
+		$depth = ($x_ticks < 20) ? 8*SVG_DEPTH_SCALING : 6*SVG_DEPTH_SCALING;
 		$space = 0;
 
 		$x1 = (int)$x;
