@@ -28,7 +28,7 @@
     // edit these to reflect your particular situation
     //
     $locale = 'en_US.UTF-8';
-    $language = 'nl';
+    $language = 'en';
 
     // Set local timezone
     date_default_timezone_set("Europe/Amsterdam");
