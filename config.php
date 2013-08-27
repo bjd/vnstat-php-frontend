@@ -30,6 +30,9 @@
     $locale = 'en_US.UTF-8';
     $language = 'nl';
 
+    // Set local timezone
+    date_default_timezone_set("Europe/Amsterdam");
+
     // list of network interfaces monitored by vnStat
     $iface_list = array('eth0', 'sixxs');
 
@@ -68,6 +71,9 @@
 
     // Default theme
     define('DEFAULT_COLORSCHEME', 'light');
+    
+    // SVG Depth scaling factor
+    define('SVG_DEPTH_SCALING', 1);
 
     // Set local timezone
 	date_default_timezone_set("America/Los_Angeles");

@@ -186,7 +186,7 @@
 
         if ($data[0] == 'nodata')
         {
-            $text = 'no data available';
+            $text = T('no data available');
 	    $bbox = imagettfbbox(10, 0, GRAPH_FONT, $text);
 	    $textwidth = $bbox[2] - $bbox[0];
 	    imagettftext($im, 10, 0, ($iw-$textwidth)/2, $ytm + 80, $cl['text'], GRAPH_FONT, $text);
@@ -264,11 +264,11 @@
         //
         imagefilledrectangle($im, $xlm, $ih-$ybm+39, $xlm+8,$ih-$ybm+47,$cl['rx']);
         imagerectangle($im, $xlm, $ih-$ybm+39, $xlm+8,$ih-$ybm+47,$cl['text']);
-	imagettftext($im, 8,0, $xlm+14, $ih-$ybm+48,$cl['text'], GRAPH_FONT,'bytes in');
+	imagettftext($im, 8,0, $xlm+14, $ih-$ybm+48,$cl['text'], GRAPH_FONT,T('bytes in'));
 
         imagefilledrectangle($im, $xlm+120 , $ih-$ybm+39, $xlm+128,$ih-$ybm+47,$cl['tx']);
         imagerectangle($im, $xlm+120, $ih-$ybm+39, $xlm+128,$ih-$ybm+47,$cl['text']);
-	imagettftext($im, 8,0, $xlm+134, $ih-$ybm+48,$cl['text'], GRAPH_FONT,'bytes out');
+	imagettftext($im, 8,0, $xlm+134, $ih-$ybm+48,$cl['text'], GRAPH_FONT,T('bytes out'));
     }
 
     function output_image()

@@ -39,7 +39,12 @@
         print "<ul class=\"iface\">\n";
         foreach ($iface_list as $if)
         {
-            print "<li class=\"iface\">";
+            if ($iface == $if) {
+                print "<li class=\"iface active\">";
+            } else {
+                print "<li class=\"iface\">";
+            }
+            print "<a href=\"$script?if=$if$p\">";
             if (isset($iface_title[$if]))
             {
                 print $iface_title[$if];
@@ -48,6 +53,7 @@
             {
                 print $if;
             }
+            print "</a>";
             print "<ul class=\"page\">\n";
             foreach ($page_list as $pg)
             {
@@ -188,7 +194,7 @@
     }
     ?>
     </div>
-    <div id="footer"><a href="http://www.sqweek.com/">vnStat PHP frontend</a> 1.5.1 - &copy;2006-2010 Bjorge Dijkstra (bjd _at_ jooz.net)</div>
+    <div id="footer"><a href="http://www.sqweek.com/">vnStat PHP frontend</a> 1.5.2 - &copy;2006-2011 Bjorge Dijkstra (bjd _at_ jooz.net)</div>
   </div>
 </div>
 

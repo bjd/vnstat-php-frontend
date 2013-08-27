@@ -90,7 +90,7 @@
     }
 
 
-    function get_vnstat_data()
+    function get_vnstat_data($use_label=true)
     {
         global $iface, $vnstat_bin, $data_dir;
         global $hour,$day,$month,$top,$summary;
@@ -135,12 +135,12 @@
                 $day[$d[1]]['rx']    = $d[3] * 1024 + $d[5];
                 $day[$d[1]]['tx']    = $d[4] * 1024 + $d[6];
                 $day[$d[1]]['act']   = $d[7];
-                if ($d[2] != 0)
+                if ($d[2] != 0 && $use_label)
                 {
                     $day[$d[1]]['label'] = strftime(T('datefmt_days'),$d[2]);
                     $day[$d[1]]['img_label'] = strftime(T('datefmt_days_img'), $d[2]);
                 }
-                else
+                elseif($use_label)
                 {
                     $day[$d[1]]['label'] = '';
                     $day[$d[1]]['img_label'] = '';
@@ -152,12 +152,12 @@
                 $month[$d[1]]['rx']   = $d[3] * 1024 + $d[5];
                 $month[$d[1]]['tx']   = $d[4] * 1024 + $d[6];
                 $month[$d[1]]['act']  = $d[7];
-                if ($d[2] != 0)
+                if ($d[2] != 0 && $use_label)
                 {
                     $month[$d[1]]['label'] = strftime(T('datefmt_months'), $d[2]);
                     $month[$d[1]]['img_label'] = strftime(T('datefmt_months_img'), $d[2]);
                 }
-                else
+                else if ($use_label)
                 {
                     $month[$d[1]]['label'] = '';
                     $month[$d[1]]['img_label'] = '';
@@ -169,14 +169,14 @@
                 $hour[$d[1]]['rx']   = $d[3];
                 $hour[$d[1]]['tx']   = $d[4];
                 $hour[$d[1]]['act']  = 1;
-                if ($d[2] != 0)
+                if ($d[2] != 0 && $use_label)
                 {
                     $st = $d[2] - ($d[2] % 3600);
                     $et = $st + 3600;
                     $hour[$d[1]]['label'] = strftime(T('datefmt_hours'), $st).' - '.strftime(T('datefmt_hours'), $et);
                     $hour[$d[1]]['img_label'] = strftime(T('datefmt_hours_img'), $d[2]);
                 }
-                else
+                else if ($use_label)
                 {
                     $hour[$d[1]]['label'] = '';
                     $hour[$d[1]]['img_label'] = '';
@@ -188,8 +188,11 @@
                 $top[$d[1]]['rx']   = $d[3] * 1024 + $d[5];
                 $top[$d[1]]['tx']   = $d[4] * 1024 + $d[6];
                 $top[$d[1]]['act']  = $d[7];
-                $top[$d[1]]['label'] = strftime(T('datefmt_top'), $d[2]);
-                $top[$d[1]]['img_label'] = '';
+                if($use_label)
+                {
+                    $top[$d[1]]['label'] = strftime(T('datefmt_top'), $d[2]);
+                    $top[$d[1]]['img_label'] = '';
+                }
             }
             else
             {
