@@ -10,7 +10,7 @@ $L['months'] = '按月';
 $L['Summary'] = '總覽';
 $L['Top 10 days'] = '最高 10 天流量排行';
 $L['Last 24 hours'] = '最近 24 小時';
-$L['Last 30 days'] = '最近 30 天天';
+$L['Last 30 days'] = '最近 30 天';
 $L['Last 12 months'] = '最近 12 個月';
 
 // traffic table columns
