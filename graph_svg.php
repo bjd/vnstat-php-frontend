@@ -153,7 +153,7 @@
 
 	// draw title
 	$text = T('Traffic data for')." $iface";
-	svg_text($iw / 2, ($ytm / 2), $text, array( 'stroke' => $cl['text'], 'fill' => $cl['text']['rgb'],'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-weight' => 'bold', 'text-anchor' => 'middle' ));
+	svg_text($iw / 2, ($ytm / 2), $text, array( 'stroke' => 'none', 'fill' => $cl['text']['rgb'],'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-weight' => 'bold', 'text-anchor' => 'middle' ));
     }
 
     function draw_border()
