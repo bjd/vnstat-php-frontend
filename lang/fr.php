@@ -9,9 +9,9 @@ $L['months'] = 'Mois';
 // main table headers
 $L['Summary'] = 'Sommaire';
 $L['Top 10 days'] = 'Les 10 meilleurs jours';
-$L['Last 24 hours'] = 'Derinères 24 heures';
+$L['Last 24 hours'] = 'Dernières 24 heures';
 $L['Last 30 days'] = 'Derniers 30 jours';
-$L['Last 12 months'] = 'Les derniers 12 mois';
+$L['Last 12 months'] = 'Les 12 derniers mois';
 
 // traffic table columns
 $L['In'] = 'Entrant';
