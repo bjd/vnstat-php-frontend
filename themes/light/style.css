@@ -4,6 +4,18 @@ body
     padding: 0;
 }
 
+a[href]:link,
+a[href]:visited {
+    color: #00f;
+    text-decoration: none;
+}
+a[href]:hover,
+a[href]:active,
+a[href]:focus {
+    color: #c00;
+    text-decoration: none;
+}
+
 #wrap
 {
    xwidth: 868px;
@@ -31,6 +43,10 @@ body
     display: none;
 }
 #sidebar li.iface.active ul
+{
+    display: block;
+}
+#sidebar li.iface:hover ul
 {
     display: block;
 }
@@ -112,7 +128,8 @@ body
 {
     padding: 8px;
     border-left: 1px solid #99b;
-    border-right: 1px solid #99b;    
+    border-right: 1px solid #99b;
+    border-bottom: 1px solid #99b;
     border-collapse: collapse;
 }
 
