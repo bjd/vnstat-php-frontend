@@ -83,7 +83,7 @@
         }
 
 	$tp = "./themes/$style";
-        if (!is_dir($tp) || !file_exists("$tp/theme.php"))
+        if (!is_dir($tp) || !file_exists("$tp/theme.php") || !preg_match('/^[a-z0-9-_]+$/i', $style))
         {
 	    $style = DEFAULT_COLORSCHEME;
         }
