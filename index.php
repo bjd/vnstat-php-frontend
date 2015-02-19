@@ -165,7 +165,7 @@
 <div id="wrap">
   <div id="sidebar"><?php write_side_bar(); ?></div>
    <div id="content">
-    <div id="header"><?php print T('Traffic data for')." $iface_title[$iface] ($iface)";?></div>
+    <div id="header"><?php print T('Traffic data for').(isset($iface_title[$iface]) ? $iface_title[$iface] : '')." ($iface)";?></div>
     <div id="main">
     <?php
     $graph_params = "if=$iface&amp;page=$page&amp;style=$style";
