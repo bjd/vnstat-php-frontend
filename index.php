@@ -99,25 +99,30 @@
         //
         // build array for write_data_table
         //
-        $sum[0]['act'] = 1;
-        $sum[0]['label'] = T('This hour');
-        $sum[0]['rx'] = $hour[0]['rx'];
-        $sum[0]['tx'] = $hour[0]['tx'];
 
-        $sum[1]['act'] = 1;
-        $sum[1]['label'] = T('This day');
-        $sum[1]['rx'] = $day[0]['rx'];
-        $sum[1]['tx'] = $day[0]['tx'];
+        $sum = array();
 
-        $sum[2]['act'] = 1;
-        $sum[2]['label'] = T('This month');
-        $sum[2]['rx'] = $month[0]['rx'];
-        $sum[2]['tx'] = $month[0]['tx'];
+        if (count($day) > 0 && count($hour) > 0 && count($month) > 0) {
+            $sum[0]['act'] = 1;
+            $sum[0]['label'] = T('This hour');
+            $sum[0]['rx'] = $hour[0]['rx'];
+            $sum[0]['tx'] = $hour[0]['tx'];
 
-        $sum[3]['act'] = 1;
-        $sum[3]['label'] = T('All time');
-        $sum[3]['rx'] = $trx;
-        $sum[3]['tx'] = $ttx;
+            $sum[1]['act'] = 1;
+            $sum[1]['label'] = T('This day');
+            $sum[1]['rx'] = $day[0]['rx'];
+            $sum[1]['tx'] = $day[0]['tx'];
+
+            $sum[2]['act'] = 1;
+            $sum[2]['label'] = T('This month');
+            $sum[2]['rx'] = $month[0]['rx'];
+            $sum[2]['tx'] = $month[0]['tx'];
+
+            $sum[3]['act'] = 1;
+            $sum[3]['label'] = T('All time');
+            $sum[3]['rx'] = $trx;
+            $sum[3]['tx'] = $ttx;
+        }
 
         write_data_table(T('Summary'), $sum);
         print "<br/>\n";
@@ -175,7 +180,7 @@
 <div id="wrap">
   <div id="sidebar"><?php write_side_bar(); ?></div>
    <div id="content">
-    <div id="header"><?php print T('Traffic data for')." $iface_title[$iface] ($iface)";?></div>
+    <div id="header"><?php print T('Traffic data for').(isset($iface_title[$iface]) ? $iface_title[$iface] : '')." ($iface)";?></div>
     <div id="main">
     <?php
     $graph_params = "if=$iface&amp;page=$page&amp;style=$style";

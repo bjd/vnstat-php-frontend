@@ -123,6 +123,10 @@
         $month = array();
         $top = array();
 
+        if (strpos($vnstat_data[0], 'Error') !== false) {
+          return;
+        }
+
         //
         // extract data
         //
@@ -199,16 +203,9 @@
                 $summary[$d[0]] = isset($d[1]) ? $d[1] : '';
             }
         }
-        if (count($day) == 0)
-            $day[0] = 'nodata';
+
         rsort($day);
-
-        if (count($month) == 0)
-            $month[0] = 'nodata';
         rsort($month);
-
-        if (count($hour) == 0)
-            $hour[0] = 'nodata';
         rsort($hour);
     }
 ?>
