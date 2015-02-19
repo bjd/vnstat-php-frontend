@@ -105,7 +105,7 @@
     function draw_grid($x_ticks, $y_ticks)
     {
         global $im, $cl, $iw, $ih, $xlm, $xrm, $ytm, $ybm;
-        $x_step = ($iw - $xlm - $xrm) / $x_ticks;
+        $x_step = ($iw - $xlm - $xrm) / ($x_ticks ?: 1);
         $y_step = ($ih - $ytm - $ybm) / $y_ticks;
 
 	$depth = 10;//($x_step / 8) + 4;
@@ -139,7 +139,7 @@
         $unit = 'K';
         $offset = 0;
         $gr_h = $ih - $ytm - $ybm;
-        $x_step = ($iw - $xlm - $xrm) / $x_ticks;
+        $x_step = ($iw - $xlm - $xrm) / ($x_ticks ?: 1);
         $y_step = ($ih - $ytm - $ybm) / $y_ticks;
         $bar_w = ($x_step / 2) ;
 
@@ -184,7 +184,7 @@
 	imagesetthickness($im, 1);
         $sf = ($prescale * $y_scale * $y_ticks) / $gr_h;
 
-        if ($data[0] == 'nodata')
+        if (count($data) == 0)
         {
             $text = T('no data available');
 	    $bbox = imagettfbbox(10, 0, GRAPH_FONT, $text);

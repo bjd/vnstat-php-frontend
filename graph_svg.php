@@ -165,7 +165,7 @@
     function draw_grid($x_ticks, $y_ticks)
     {
         global $cl, $iw, $ih, $xlm, $xrm, $ytm, $ybm;
-        $x_step = ($iw - $xlm - $xrm) / $x_ticks;
+        $x_step = ($iw - $xlm - $xrm) / ($x_ticks ?: 1);
         $y_step = ($ih - $ytm - $ybm) / $y_ticks;
 
 	$depth = 12*SVG_DEPTH_SCALING;
@@ -203,7 +203,7 @@
         $unit = 'K';
         $offset = 0;
         $gr_h = $ih - $ytm - $ybm;
-        $x_step = ($iw - $xlm - $xrm) / $x_ticks;
+        $x_step = ($iw - $xlm - $xrm) / ($x_ticks ?: 1);
         $y_step = ($ih - $ytm - $ybm) / $y_ticks;
         $bar_w = ($x_step / 2) ;
 
@@ -247,7 +247,7 @@
         //
         $sf = ($prescale * $y_scale * $y_ticks) / $gr_h;
 
-        if ($data[0] == 'nodata')
+        if (count($data) == 0)
         {
             $text = 'no data available';
 	    svg_text($iw/2, $ytm + 80, $text, array( 'stroke' => $cl['text']['rgb'], 'fill' => $cl['text']['rgb'], 'stroke-width' => 0, 'font-family' => SVG_FONT, 'font-size' => '16pt', 'text-anchor' => 'middle') );
