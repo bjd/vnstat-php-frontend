@@ -63,6 +63,10 @@
     // graphics format to use: svg or png
     $graph_format='svg';
 
+    // preferred byte notation. null auto chooses. otherwise use one of
+    // 'TB','GB','MB','KB'
+    $byte_notation = null;
+
     // Font to use for PNG graphs
     define('GRAPH_FONT',dirname(__FILE__).'/VeraBd.ttf');
 

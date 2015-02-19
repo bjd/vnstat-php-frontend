@@ -67,15 +67,25 @@
 
     function kbytes_to_string($kb)
     {
+
+        global $byte_notation;
+
         $units = array('TB','GB','MB','KB');
         $scale = 1024*1024*1024;
         $ui = 0;
 
-        while (($kb < $scale) && ($scale > 1))
+        $custom_size = isset($byte_notation) && in_array($byte_notation, $units);
+
+        while ((($kb < $scale) && ($scale > 1)) || $custom_size)
         {
             $ui++;
             $scale = $scale / 1024;
+
+            if ($custom_size && $units[$ui] == $byte_notation) {
+                break;
+            }
         }
+
         return sprintf("%0.2f %s", ($kb/$scale),$units[$ui]);
     }
 
