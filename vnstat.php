@@ -95,26 +95,26 @@
         global $iface, $vnstat_bin, $data_dir;
         global $hour,$day,$month,$top,$summary;
 
+	$vnstat_data = array();
         if (!isset($vnstat_bin) || $vnstat_bin == '')
         {
 	    if (file_exists("$data_dir/vnstat_dump_$iface"))
 	    {
         	$vnstat_data = file("$data_dir/vnstat_dump_$iface");
 	    }
-	    else
-	    {
-		$vnstat_data = array();
-	    }
         }
         else
         {
             $fd = popen("$vnstat_bin --dumpdb -i $iface", "r");
-            $buffer = '';
-            while (!feof($fd)) {
-                $buffer .= fgets($fd);
+            if (is_resource($fd))
+            {
+            	$buffer = '';
+            	while (!feof($fd)) {
+                	$buffer .= fgets($fd);
+            	}
+            	$vnstat_data = explode("\n", $buffer);
+            	pclose($fd);
             }
-            $vnstat_data = explode("\n", $buffer);
-            pclose($fd);
         }
 
 
@@ -123,7 +123,7 @@
         $month = array();
         $top = array();
 
-        if (strpos($vnstat_data[0], 'Error') !== false) {
+        if (isset($vnstat_data[0]) && strpos($vnstat_data[0], 'Error') !== false) {
           return;
         }
 
