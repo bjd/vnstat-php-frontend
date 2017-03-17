@@ -79,4 +79,7 @@
     // SVG Depth scaling factor
     define('SVG_DEPTH_SCALING', 1);
 
+    // Set local timezone
+	date_default_timezone_set("America/Los_Angeles");
+
 ?>
