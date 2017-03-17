@@ -75,7 +75,7 @@
 
     // Default theme
     define('DEFAULT_COLORSCHEME', 'light');
-    
+
     // SVG Depth scaling factor
     define('SVG_DEPTH_SCALING', 1);
 
